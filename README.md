@@ -13,6 +13,15 @@ Utiliser une librairie dynamique revient a indicer au programme d'ou il pourra c
 
 **II- Création de la librairie**
 
+Pour generer la librairie dynamique lancer la commande suivante :
+>gcc -o libcalculatrice.so -shared *.o (vous devez avoir les fichiers objets des fonctions)
+Apres vous metter la nouvelle librairie dans le dossier "lib". Vous pourrez alors lancer l'executable avec la commande :
+>gcc src/prog.c -L lib -I include -l calculatrice -o prog
+Si vous lancez l'executable, il doit normalement avoir une erreur. Elle est dû au faite qu'avoir les librairies dynamiques, le systeme va chercher les fichiers dans un dossier special. Et vu que notre librairie n'y est pas, on doit indiquer au systeme qu'il doit aussi chercher dans notre dossier lib. Pour cela, on execute les commandes suivantes :
+>echo $LD_LIBRARY_PATH (pour verifier que la variable est vide)
+>export LD_LIBRARY_PATH=/chemin/vers/le/dossier/lib:$LD_LIBRARY_PATH
+Le programme devrait s'executer sans probleme maintenant
+**NB** = Au redemarrage du l'ordinateur, il faudrait refaire la config car c'est une variable temporaire.
 http://perso.ens-lyon.fr/frederic.vivien/Enseignement/PPP-2001-2002/LibDyn.pdf
 Vous pouvez utiliser ce lien qui explique un peu comment créer une librairie dynamique
 
